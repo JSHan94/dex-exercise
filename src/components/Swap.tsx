@@ -8,51 +8,52 @@ import {
 } from "@chakra-ui/react";
 import { SettingsIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import etherLogo from '../assets/etherLogo.png'
-import { Provider, Network } from "aptos"
 import { useState } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { Provider, Network } from "aptos"
 
 export default function Swap() {
-  const { account, signAndSubmitTransaction } = useWallet();
   const [inputValue, setInputValue] = useState('');
-
-  const provider: Provider = new Provider(Network.DEVNET);
-  async function swap() {
-    console.log("Swap")
-    console.log("account : ", account)
-    await submitData()
+  const { account, signAndSubmitTransaction } = useWallet();
+  
+  const handleChange = (e: any) => {
+    setInputValue(e.target.value)
+    console.log(inputValue)
   }
 
-  const submitData = async () =>{
-    const moduleAddress = '0x57877313f1fcd9d913fa37125e47e38dcf1a561696b436223140fa5632ef8087'
+  async function swap() {
+    const provider: Provider = new Provider(Network.DEVNET)
+    const moduleAdress = '0x8699fedf3dba3ebc43459bb4557dac8e283bb99014e4fdbb9ce1a05ff9a9ac16'
+
     // const payload = {
     //   type: "entry_function_payload",
-    //   function: `${moduleAddress}::dex::create_store`,
+    //   function: `${moduleAdress}::dex::create_store`,
     //   type_arguments: [],
     //   arguments: []
     // }
+
     // const payload = {
     //   type: "entry_function_payload",
-    //   function: `${moduleAddress}::dex::create_swap`,
+    //   function: `${moduleAdress}::dex::create_swap`,
     //   type_arguments: [],
-    //   arguments: ["10"]
-    // }
-    // try{ 
-    //   const response = await signAndSubmitTransaction(payload);
-    //   await provider.waitForTransaction(response.hash);
-    //   console.log(response)
-    //   console.log("Transaction submitted")
-    // }catch (error:any){
-    //   console.log(error)
+    //   arguments: [inputValue]
     // }
 
-    if (!account) return
-    const resource = await provider.getAccountResource(
-      account?.address,
-      `${moduleAddress}::dex::SwapStore`
-    );
-    const balance = (resource as any).data.balance;
-    setInputValue(balance)
+    // try{
+    //   const response = await signAndSubmitTransaction(payload)
+    //   await provider.waitForTransaction(response.hash)
+    // } catch(error){
+    //   console.log(error)
+    // }
+    
+    // if (!account) return
+    // const resource = await provider.getAccountResource(
+    //   account.address,
+    //   `${moduleAdress}::dex::SwapStore`
+    // )
+
+    // const balance = (resource as any).data.balance
+    // setInputValue(balance)
   }
 
   return (
@@ -121,6 +122,7 @@ export default function Swap() {
               border="none"
               focusBorderColor="none"
               type="number"
+              onChange={handleChange}
             />
           </Box>
         </Flex>
@@ -156,7 +158,8 @@ export default function Swap() {
               outline="none"
               border="none"
               focusBorderColor="none"
-              type="number" />
+              type="number" 
+              />
           </Box>
         </Flex>
 

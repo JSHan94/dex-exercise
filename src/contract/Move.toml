@@ -7,7 +7,7 @@ authors = []
 std = "0x1"
 aptos_std = "0x1"
 aptos_framework = "0x1"
-addr= "_"
+addr= "8699fedf3dba3ebc43459bb4557dac8e283bb99014e4fdbb9ce1a05ff9a9ac16"
 
 [dev-addresses]
 addr= "0x2"
