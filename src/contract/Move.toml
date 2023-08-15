@@ -1,0 +1,20 @@
+[package]
+name = 'dex'
+version = '1.0.0'
+authors = []
+
+[addresses]
+std = "0x1"
+aptos_std = "0x1"
+aptos_framework = "0x1"
+addr= "_"
+
+[dev-addresses]
+addr= "0x2"
+
+[dependencies.AptosFramework]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'mainnet'
+subdir = 'aptos-move/framework/aptos-framework'
+
+[dev-dependencies]
